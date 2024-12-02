@@ -17,12 +17,13 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun GiphyApp(viewModel: GiphyViewModel) {
     val state = viewModel.uiState
-    val gifs = viewModel.gifs
 
     when (state) {
         is UiState.Loading -> LoadingBox()
-        is UiState.Error -> ErrorBox(onRetry = { viewModel.loadGifs() })
-        is UiState.Success -> GifList(gifs = gifs, onLoadMore = { viewModel.reloadGifs() })
+        is UiState.Error -> ErrorBox(onRetry = { viewModel.reloadGifs() })
+        is UiState.GifListState -> GifList(gifs = state.gifStates,
+            onLoadMore = { viewModel.reloadGifs() },
+            onRetryGif = { gif -> viewModel.reloadGif(gif)})
     }
 }
 

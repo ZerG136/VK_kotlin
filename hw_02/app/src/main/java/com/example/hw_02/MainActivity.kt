@@ -10,12 +10,6 @@ data class GifData(val images: GifImages)
 data class GifImages(val original: ImageUrl)
 data class ImageUrl(val url: String)
 
-sealed class UiState {
-    data object Loading : UiState()
-    data object Success : UiState()
-    data object Error : UiState()
-}
-
 class MainActivity : ComponentActivity() {
 
     private val viewModel: GiphyViewModel by viewModels {
